@@ -80,7 +80,7 @@ export const ProjectAbout: React.FC = () => {
 
             <div className="lg:col-span-6 lg:col-start-7 pt-4">
               <p className="fade-up text-[20px] md:text-[28px] leading-[1.1] text-white font-bold mb-10 tracking-tight">
-                Located in Dera Bassi near Tricity, this project offers premium residential plots and built villas along with smart 1 BHK homes.
+                Located in Dera Bassi near Tricity, this project offers premium residential plots and built villas along with smart 1 BHK Flats.
               </p>
               <p className="fade-up text-[17px] leading-relaxed text-white/60 max-w-[500px]">
                 A thoughtfully planned residential development offering the perfect balance of comfort, connectivity, and modern design.
