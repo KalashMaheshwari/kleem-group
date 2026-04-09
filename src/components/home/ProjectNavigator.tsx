@@ -7,7 +7,7 @@ const brands = [
     id: 'builders',
     name: 'Kleem Builder Pvt Ltd',
     tagline: 'Crafting Luxury Landmarks',
-    image: '/images/builder-bg.jpg',
+    image: '/images/kasoli.webp',
     type: 'nested',
     description: 'Architecting dreams into reality with world-class residential and commercial developments.',
     projects: [
@@ -65,7 +65,7 @@ export const ProjectNavigator: React.FC = () => {
   const ROTATION_TIME = 6000;
   const INTERVAL = 30;
 
-  // ── DESKTOP TIMER (STAYS AS IS) ──
+  /* ── AUTOMATION COMMENTED OUT ──
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
     if (timerRef.current) {
@@ -90,6 +90,7 @@ export const ProjectNavigator: React.FC = () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, [isPaused]);
+  ── END OF AUTOMATION ── */
 
   // ── TOGGLE LOGIC ──
   const handleToggle = useCallback((idx: number) => {
@@ -131,7 +132,7 @@ export const ProjectNavigator: React.FC = () => {
   return (
     <section id="projects" className="w-full bg-gradient-to-b from-white via-[#fefefe] to-[#f9f7f7] py-16 md:py-32 overflow-hidden">
 
-      {/* ── HEADER (STAYS AS IS) ── */}
+      {/* ── HEADER ── */}
       <div className="max-w-[1800px] mx-auto px-4 md:px-8 mb-12 md:mb-20">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
@@ -149,7 +150,7 @@ export const ProjectNavigator: React.FC = () => {
         </div>
       </div>
 
-      {/* ── RESTORED MOBILE VIEW ── */}
+      {/* ── MOBILE VIEW ── */}
       <div className="block md:hidden px-4 space-y-3">
         {brands.map((brand, idx) => (
           <div key={brand.id} className="border border-black/5 rounded-2xl overflow-hidden bg-white shadow-sm">
@@ -188,7 +189,7 @@ export const ProjectNavigator: React.FC = () => {
         ))}
       </div>
 
-      {/* ── DESKTOP VIEW (UNTOUCHED) ── */}
+      {/* ── DESKTOP VIEW ── */}
       <div className="hidden md:grid max-w-[1800px] mx-auto px-8 grid-cols-12 gap-8 items-stretch">
         <div
           className="col-span-12 lg:col-span-9 min-h-[700px] xl:min-h-[750px] relative rounded-[40px] overflow-hidden shadow-[0_60px_120px_-20px_rgba(112,6,29,0.15)] group"
@@ -217,7 +218,7 @@ export const ProjectNavigator: React.FC = () => {
               <div className="grid grid-cols-2 gap-3 max-w-lg">
                 {activeBrand.projects?.map((project, pIdx) => (
                   <button key={pIdx} onClick={() => navigate(project.path)} className="hero-projects-item flex items-center justify-between p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-[#70061d]/50 transition-all duration-300">
-                    <div className="flex flex-col items-start"><span className="text-sm font-semibold text-white">{project.name}</span><span className="text-[9px] tracking-wider text-[#70061d] uppercase mt-1">{project.status}</span></div><ArrowIcon className="w-4 h-4 text-white/30" />
+                    <div className="flex flex-col items-start"><span className="text-sm font-semibold text-white">{project.name}</span><span className="text-[9px] tracking-wider text-[#fa6183] uppercase mt-1">{project.status}</span></div><ArrowIcon className="w-4 h-4 text-white/30" />
                   </button>
                 ))}
               </div>
@@ -226,16 +227,19 @@ export const ProjectNavigator: React.FC = () => {
                 <span>Visit Website</span><ArrowIcon className="w-4 h-4" />
               </a>
             )}
+            
+            {/* ── PROGRESS BAR (COMMENTED OUT CSS) ──
             <div className="absolute bottom-10 right-10 xl:right-20 flex items-center gap-4">
               <div className="w-[160px] xl:w-[200px] h-[2px] bg-white/10 rounded-full overflow-hidden">
                 <div className="h-full bg-gradient-to-r from-[#70061d] to-[#a01830]" style={{ width: `${progressPercent}%`, transition: 'width 30ms linear' }} />
               </div>
               <span className="text-[10px] text-white/40 font-mono">{Math.ceil((ROTATION_TIME - (progressPercent / 100 * ROTATION_TIME)) / 1000)}s</span>
-            </div>
+            </div> 
+            */}
           </div>
         </div>
 
-        {/* ── SIDEBAR NAVIGATION (STAYS AS IS) ── */}
+        {/* ── SIDEBAR NAVIGATION ── */}
         <div className="col-span-12 lg:col-span-3 flex flex-col gap-4">
           {brands.map((brand, idx) => {
             const isActive = idx === activeIndex;
@@ -250,7 +254,7 @@ export const ProjectNavigator: React.FC = () => {
                     <span className={`text-[10px] tracking-[0.15em] uppercase font-medium ${isActive ? 'text-white/50' : 'text-neutral-400'}`}>{brand.tagline.split(' ').slice(0, 2).join(' ')}</span>
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isActive ? 'bg-white/20' : 'bg-[#f5f5f5]'}`}><ArrowIcon className="w-4 h-4" /></div>
                   </div>
-                  {isActive && <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/20"><div className="h-full bg-white/80" style={{ width: `${progressPercent}%`, transition: 'width 30ms linear' }} /></div>}
+                  {/* {isActive && <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/20"><div className="h-full bg-white/80" style={{ width: `${progressPercent}%`, transition: 'width 30ms linear' }} /></div>} */}
                 </div>
               </div>
             );
