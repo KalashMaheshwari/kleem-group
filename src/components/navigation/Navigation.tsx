@@ -55,7 +55,7 @@ export const Navigation: React.FC = () => {
             opacity: 1,
             scale: 1,
             // Shift left on desktop when not scrolled
-            x: window.innerWidth > 768 ? (scrolled ? 0 : "90%") : 0,
+            x: window.innerWidth > 768 ? (scrolled ? 0 : "100%") : 0,
             backgroundColor: 'rgba(54, 2, 12, 0.9)',
           }}
           transition={fluidTransition}
