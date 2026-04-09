@@ -53,20 +53,6 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Project Details */}
-          <div className="lg:col-span-2">
-            <h4 className="text-[9px] font-black tracking-[0.4em] text-white/30 uppercase mb-6">
-              Active Spec
-            </h4>
-            <div className="space-y-1">
-              <p className="text-[14px] font-bold text-white uppercase tracking-tight">Dera Bassi Villas</p>
-              <p className="text-[13px] text-white/50 leading-relaxed">
-                20x45 ft | 100 Sq. Yards <br />
-                Final 13 Units
-              </p>
-            </div>
-          </div>
-
           {/* Contact Direct */}
           <div className="lg:col-span-3">
             <h4 className="text-[9px] font-black tracking-[0.4em] text-white/30 uppercase mb-6">
