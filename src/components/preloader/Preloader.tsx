@@ -197,7 +197,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           {/* Identity Tags — Hidden on mobile for cleaner look */}
           <div className="overflow-hidden w-full mb-2 hidden md:block">
             <div className="reveal-text flex items-center justify-center gap-0">
-              {['Architects of Space', 'Builders of Legacy'].map((tag, i) => (
+              {['Architects of Space', 'Builders of Legacy'].map((tag) => (
                 <span key={tag} className="text-[9px] tracking-[0.35em] uppercase text-white/20 font-medium px-4">{tag}</span>
               ))}
             </div>
