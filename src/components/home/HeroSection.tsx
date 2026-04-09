@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, cubicBezier } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -48,63 +47,60 @@ export const HeroSection: React.FC = () => {
         </video>
       </div>
 
-      {/* 2. OVERLAYS (Darkened) */}
-      {/* Increased solid tint opacity to 0.5 for deeper color saturation */}
+      {/* 2. OVERLAYS */}
       <div className="absolute inset-0 bg-[#70061d]/50 z-[1] mix-blend-multiply" />
-
-      {/* Darkened radial mask for higher contrast in the center */}
       <div
         className="absolute inset-0 z-[2]"
         style={{
-          background: 'radial-gradient(circle at center, transparent 10%, rgba(13,0,2,0.85) 90%)',
+          background: 'radial-gradient(circle at center, transparent 10%, rgba(67, 0, 17, 0.85) 90%)',
         }}
       />
-
-      {/* Deeper bottom gradient for a seamless merge */}
       <div
         className="absolute inset-0 z-[3]"
         style={{
-          background: 'linear-gradient(to top, #0d0002 0%, transparent 45%)',
+          background: 'linear-gradient(to top, #430011d9 0%, transparent 45%)',
         }}
       />
 
       {/* --- CONTENT LAYERS --- */}
       <div className="relative z-10 w-full h-full pointer-events-none">
 
-        {/* 3. TOP LEFT: BRAND */}
-        <div className="absolute top-8 left-8 md:top-14 md:left-14 pointer-events-auto">
-          <Link to="/">
-            <img
-              src="/logofull.webp"
-              alt="Kleem Group"
-              className="h-12 md:h-18 w-auto object-contain transition-all hover:opacity-70"
-            />
-          </Link>
-        </div>
-
-        {/* 4. TOP RIGHT: EXPLORE CTA */}
-        <div className="absolute top-8 right-8 md:top-14 md:right-14 pointer-events-auto">
+        {/* 4. DESKTOP ONLY: TOP RIGHT EXPLORE CTA */}
+        <div className="hidden md:block absolute md:top-14 md:right-14 pointer-events-auto">
           <motion.a
             initial={{ opacity: 0, x: 15 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             href="/#projects"
-            className="inline-block bg-white text-ink py-4 px-10 text-[11px] font-black tracking-[0.3em] uppercase rounded-full transition-all duration-500 hover:bg-[#70061d] hover:text-white shadow-2xl"
+            className="inline-block bg-white text-black py-4 px-10 text-[11px] font-black tracking-[0.3em] uppercase rounded-full transition-all duration-500 hover:bg-[#70061d] hover:text-white shadow-2xl"
           >
             Explore Projects
           </motion.a>
         </div>
 
-        {/* 5. CENTER ICON (Massive & Shifted Higher) */}
-        <div className="absolute inset-0 flex items-center justify-center -translate-y-[12vh]">
+        {/* 5. CENTER CONTENT (Logo + Mobile Button) */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center -translate-y-[10vh] md:-translate-y-[12vh]">
           <motion.img
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.5, delay: 0.2, ease: premiumEase }}
-            src="/logomain.webp"
+            src="/logofull.webp"
             alt="Kleem Group Icon"
-            className="w-auto h-[clamp(180px,22vw,320px)] object-contain"
+            className="w-auto h-[clamp(160px,22vw,320px)] object-contain"
           />
+
+          {/* MOBILE ONLY: BUTTON BELOW LOGO */}
+          <div className="md:hidden mt-10 pointer-events-auto">
+            <motion.a
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              href="/#projects"
+              className="inline-block bg-white text-black py-3.5 px-8 text-[10px] font-black tracking-[0.25em] uppercase rounded-full shadow-xl"
+            >
+              Explore Projects
+            </motion.a>
+          </div>
         </div>
 
         {/* 6. BOTTOM TEXT */}

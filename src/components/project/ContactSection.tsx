@@ -45,8 +45,9 @@ export const ContactSection: React.FC = () => {
                 Principal Office
               </p>
               <p className="text-[20px] md:text-[24px] font-[900] text-black leading-tight uppercase tracking-tight">
-                SCO 205, The Summit <br /> 
-                Zirakpur, Punjab
+                SCO-11, First Floor, <br />
+                EL SPAZIA, PR 7 Airport Rd. <br /> 
+                Zirakpur, PB
               </p>
             </div>
 

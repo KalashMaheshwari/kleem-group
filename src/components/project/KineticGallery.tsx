@@ -94,7 +94,7 @@ export const KineticGallery: React.FC = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="py-32 bg-white overflow-hidden select-none relative">
+    <section ref={containerRef} className="py-2 bg-white overflow-hidden select-none relative">
       {/* DECORATION: Background Monogram or Coordinates */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-black text-primary/[0.02] pointer-events-none whitespace-nowrap uppercase tracking-tighter">
         Kleem Group // 2026

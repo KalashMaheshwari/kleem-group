@@ -10,16 +10,16 @@ const blueprintData = [
     tag: 'PREMIUM CONFIGURATION',
     title: 'Villa Layout',
     description: 'Spacious layout designed for comfortable family living with balanced space planning and open flow.',
-    stats: '100 Sq. Yards',
+    stats: 'Ground Floor',
     image: '/BP1.webp',
     features: ['Balanced Space Planning', 'Comfortable Family Living', 'Open Flow Design']
   },
   {
     id: '1bhk',
-    tag: 'SMART CONFIGURATION',
-    title: '1 BHK Layout',
+    tag: 'PREMIUM CONFIGURATION',
+    title: 'Villa Layout',
     description: 'Smart and efficient layout designed for modern living and maximizing rental utility.',
-    stats: '75 Sq. Yards',
+    stats: 'First Floor',
     image: '/BP2.webp',
     features: ['Maximum Space Utility', 'Modern Rental Ready', 'Efficient Footprint']
   }
@@ -82,7 +82,7 @@ export const BlueprintSection: React.FC = () => {
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-primary z-30">
-      
+
       {/* WHITE ARCHITECTURAL DOT TEXTURE (Inverted for Burgundy BG) */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.07]"
         style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '60px 60px' }}
@@ -94,12 +94,6 @@ export const BlueprintSection: React.FC = () => {
         <div className="relative w-full md:w-[42%] h-full flex flex-col justify-center px-12 md:px-20 lg:px-28 bg-primary z-20">
           {blueprintData.map((data, index) => (
             <div key={data.id} className={`bp-content-${index} absolute inset-0 flex flex-col justify-center px-12 md:px-20 lg:px-28 pointer-events-none ${index === 0 ? 'opacity-100' : 'opacity-0'}`}>
-              
-              <div className="mb-6">
-                <span className="inline-block font-bold text-[11px] tracking-[0.5em] text-white/50 uppercase border-l-4 border-white/20 pl-4">
-                  {data.tag}
-                </span>
-              </div>
 
               <h2 className="font-[900] text-[clamp(42px,5.5vw,72px)] text-white leading-[0.9] mb-8 tracking-tighter uppercase">
                 {data.title.split(' ').map((word, i) => (<span key={i} className="block">{word}</span>))}
@@ -134,10 +128,25 @@ export const BlueprintSection: React.FC = () => {
             <div key={data.id} className={`bp-image-${index} absolute w-full h-full flex items-center justify-center z-10`}>
               <div className="relative group w-full max-w-[92%] h-auto flex items-center justify-center">
 
-                {/* North Marker Asset */}
-                <div className="absolute -top-16 right-4 flex flex-col items-center opacity-40">
-                  <span className="text-[10px] font-bold text-white mb-1">N</span>
-                  <div className="w-[1.5px] h-10 bg-white" />
+                {/* Minimalist Delta North Arrow - N Below */}
+                <div className="absolute -top-16 right-8 flex flex-col items-center group/north select-none transition-opacity duration-500 opacity-60 hover:opacity-100">
+
+                  {/* The SVG Arrowhead */}
+                  <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 24 24"
+                    fill="white"
+                    className="transition-transform duration-700 ease-out group-hover:-translate-y-1 group-hover:scale-105"
+                  >
+                    {/* High-precision Delta Path */}
+                    <path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z" />
+                  </svg>
+
+                  {/* The N Identifier */}
+                  <span className="mt-2 text-[13px] font-black text-white tracking-[0.2em] leading-none transition-colors duration-500 group-hover:text-[#70061d]">
+                    N
+                  </span>
                 </div>
 
                 {/* Main Drawing Board */}
@@ -154,36 +163,6 @@ export const BlueprintSection: React.FC = () => {
                     <span className="text-[9px] font-mono text-primary tracking-widest uppercase font-bold">
                       ARCH_SPEC // 2026.KG
                     </span>
-                  </div>
-                </div>
-
-                {/* THE HANG-TAG: Inverted White Style for contrast on Burgundy */}
-                <div
-                  className="absolute -bottom-6 -right-4 flex flex-col items-center justify-center shadow-2xl z-20 transition-transform duration-500 group-hover:scale-110"
-                  style={{
-                    background: '#ffffff',
-                    width: '110px',
-                    height: '150px',
-                    borderRadius: '4px',
-                    padding: '24px 10px',
-                    transform: 'rotate(-2deg)',
-                    border: '1px solid rgba(0,0,0,0.05)'
-                  }}
-                >
-                  <div className="w-3 h-3 rounded-full bg-primary/10 mb-5" />
-                  <div className="flex flex-col items-center text-center gap-1">
-                    <span className="text-[9px] font-bold text-primary/40 tracking-[0.2em] uppercase">Dimension</span>
-                    <span className="text-[24px] font-black text-primary leading-none">
-                      {data.stats.split(' ')[0]}
-                    </span>
-                    <span className="text-[10px] font-bold text-primary/60 tracking-widest italic">SQ YDS</span>
-                  </div>
-                  
-                  {/* Serial Code Barcode */}
-                  <div className="mt-auto flex gap-[2px] h-5 items-end opacity-30">
-                    {[3, 6, 2, 8, 4, 7, 3].map((h, i) => (
-                      <div key={i} className="w-[3px] bg-primary" style={{ height: `${h * 2}px` }} />
-                    ))}
                   </div>
                 </div>
 
