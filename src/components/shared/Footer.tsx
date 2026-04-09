@@ -60,7 +60,9 @@ export const Footer: React.FC = () => {
             </h4>
             <div className="space-y-4">
               <p className="text-[13px] text-white/60 leading-snug">
-                SCO 205, The Summit,<br />Zirakpur, Punjab
+                SCO-11, First Floor, <br />
+                EL SPAZIA, PR 7 Airport Rd. <br /> 
+                Zirakpur, PB
               </p>
               <div className="flex flex-col gap-2">
                 <a href="tel:+917717505741" className="text-lg font-bold text-white hover:text-white/70 transition-colors">
