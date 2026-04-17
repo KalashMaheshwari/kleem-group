@@ -9,12 +9,21 @@ const brands = [
     tagline: 'Crafting Luxury Landmarks',
     image: '/images/kasoli.webp',
     type: 'nested',
-    description: 'Architecting dreams into reality with world-class residential and commercial developments.',
+    description: 'Architecting dreams into reality with world-class residential developments.',
     projects: [
-      { name: 'Dera Bassi', path: '/projects/dera-bassi', status: 'Ongoing' },
-      { name: 'Kasoli Heights', path: '#', status: 'Coming Soon' },
-      { name: 'The Heights', path: '#', status: 'Completed' },
-      { name: 'Oasis Greens', path: '#', status: 'Planning' },
+      { name: '1 BHK Flats', path: '/projects/1bhk-flats', status: 'New Launch' },
+    ]
+  },
+  {
+    id: 'developers',
+    name: 'Kleem Developers (OPC) Pvt Ltd',
+    tagline: 'Strategic Urban Growth',
+    image: '/images/developers-bg.jpg',
+    type: 'nested',
+    description: 'Creating high-yield investment opportunities through strategic land acquisition and urban planning.',
+    projects: [
+      { name: 'Luxury Villas', path: '/projects/dera-bassi', status: 'Ongoing' },
+      { name: 'La Essence', path: '/projects/la-essence', status: 'Coming Soon' },
     ]
   },
   {
@@ -34,15 +43,6 @@ const brands = [
     type: 'static',
     description: 'Transforming the sporting landscape with cutting-edge management and athlete-first strategies.',
     website: 'https://nexterasports.com',
-  },
-  {
-    id: 'developers',
-    name: 'Kleem Developers (OPC) Pvt Ltd',
-    tagline: 'Strategic Urban Growth',
-    image: '/images/developers-bg.jpg',
-    type: 'static',
-    description: 'Creating high-yield investment opportunities through strategic land acquisition and urban planning.',
-    website: 'https://kleemdevelopers.com',
   }
 ];
 
@@ -54,43 +54,10 @@ const ArrowIcon: React.FC<{ className?: string }> = ({ className }) => (
 
 export const ProjectNavigator: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [progressPercent, setProgressPercent] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const navigate = useNavigate();
 
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const elapsedRef = useRef(0);
   const accordionRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  const ROTATION_TIME = 6000;
-  const INTERVAL = 30;
-
-  /* ── AUTOMATION COMMENTED OUT ──
-  useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-    if (isMobile || isPaused) return;
-
-    timerRef.current = setInterval(() => {
-      elapsedRef.current += INTERVAL;
-      const percent = (elapsedRef.current / ROTATION_TIME) * 100;
-      setProgressPercent(percent);
-
-      if (elapsedRef.current >= ROTATION_TIME) {
-        elapsedRef.current = 0;
-        setProgressPercent(0);
-        setActiveIndex(prev => (prev + 1) % brands.length);
-      }
-    }, INTERVAL);
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [isPaused]);
-  ── END OF AUTOMATION ── */
 
   // ── TOGGLE LOGIC ──
   const handleToggle = useCallback((idx: number) => {
@@ -101,7 +68,6 @@ export const ProjectNavigator: React.FC = () => {
       setActiveIndex(idx);
     }
     elapsedRef.current = 0;
-    setProgressPercent(0);
   }, []);
 
   // ── GSAP FOR ACCORDIONS & HERO ──
@@ -130,57 +96,104 @@ export const ProjectNavigator: React.FC = () => {
   const activeBrand = brands[activeIndex] || brands[0];
 
   return (
-    <section id="projects" className="w-full bg-gradient-to-b from-white via-[#fefefe] to-[#f9f7f7] py-16 md:py-32 overflow-hidden">
+    <section id="projects" className="w-full bg-gradient-to-b from-white via-[#fcfcfc] to-[#f7f5f5] py-20 md:py-36 overflow-hidden relative">
+      
+      <style>{`
+        /* Liquid Glass - Dark Context (Hero) */
+        .liquid-glass-dark {
+          background: rgba(255, 255, 255, 0.06);
+          backdrop-filter: blur(16px) saturate(180%);
+          -webkit-backdrop-filter: blur(16px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 
+            0 8px 32px 0 rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+            inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+          position: relative;
+          overflow: hidden;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .liquid-glass-dark::before {
+          content: '';
+          position: absolute;
+          top: 0; left: -150%; width: 100%; height: 100%;
+          background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+          transition: left 0.7s ease-in-out;
+          transform: skewX(-20deg);
+          z-index: 1;
+        }
+        .liquid-glass-dark:hover::before { left: 150%; }
+        .liquid-glass-dark:hover {
+          border-color: rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Liquid Glass - Light Context (Sidebar & Mobile) */
+        .liquid-glass-light {
+          background: rgba(255, 255, 255, 0.5);
+          backdrop-filter: blur(12px) saturate(160%);
+          -webkit-backdrop-filter: blur(12px) saturate(160%);
+          border: 1px solid rgba(255, 255, 255, 0.7);
+          box-shadow: 
+            0 4px 24px rgba(0, 0, 0, 0.03),
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .liquid-glass-light:hover {
+          background: rgba(255, 255, 255, 0.7);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+      `}</style>
 
       {/* ── HEADER ── */}
-      <div className="max-w-[1800px] mx-auto px-4 md:px-8 mb-12 md:mb-20">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div className="max-w-[1800px] mx-auto px-4 md:px-8 mb-16 md:mb-24">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-5">
               <div className="w-12 h-[2px] bg-gradient-to-r from-[#70061d] to-[#a01830]" />
               <span className="text-[10px] md:text-xs tracking-[0.35em] text-[#70061d] font-semibold uppercase">Our Ventures</span>
             </div>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-[#0a0a0a] tracking-tight leading-[0.9]">
-              Building<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#70061d] via-[#8a0a26] to-[#70061d]">Empires</span>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-[#0a0a0a] tracking-[-0.03em] leading-[0.9]">
+              Building<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#70061d] via-[#9c1230] to-[#70061d]">Empires</span>
             </h2>
           </div>
-          <p className="max-w-md text-sm md:text-base text-neutral-500 leading-relaxed md:text-right">
+          <p className="max-w-md text-sm md:text-base text-neutral-400 leading-relaxed md:text-right font-light">
             Four distinct verticals, one unified vision — transforming industries and creating lasting value across real estate, healthcare, sports, and development.
           </p>
         </div>
       </div>
 
       {/* ── MOBILE VIEW ── */}
-      <div className="block md:hidden px-4 space-y-3">
+      <div className="block md:hidden px-4 space-y-4">
         {brands.map((brand, idx) => (
-          <div key={brand.id} className="border border-black/5 rounded-2xl overflow-hidden bg-white shadow-sm">
+          <div key={brand.id} className="liquid-glass-light rounded-2xl overflow-hidden">
             <button onClick={() => handleToggle(idx)} className="w-full flex items-center justify-between p-6 text-left">
               <div>
-                <span className="block text-[8px] tracking-[0.3em] text-[#70061d] font-bold uppercase mb-1">{brand.tagline.split(' ')[0]}</span>
-                <span className="text-lg font-black uppercase tracking-tight text-black">{brand.name.replace('Pvt Ltd', '')}</span>
+                <span className="block text-[8px] tracking-[0.3em] text-[#70061d] font-bold uppercase mb-1.5">{brand.tagline.split(' ')[0]}</span>
+                <span className="text-lg font-black uppercase tracking-tight text-[#111]">{brand.name.replace('Pvt Ltd', '').replace(' (OPC)', '')}</span>
               </div>
-              <div className={`w-8 h-8 rounded-full border border-black/5 flex items-center justify-center transition-transform duration-500 ${idx === activeIndex ? 'rotate-180 bg-[#70061d] text-white border-[#70061d]' : ''}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${idx === activeIndex ? 'rotate-180 bg-[#70061d] text-white shadow-lg shadow-[#70061d]/30' : 'bg-black/5 text-black/30'}`}>
                 <span className="text-[10px]">↓</span>
               </div>
             </button>
             <div ref={el => { accordionRefs.current[idx] = el; }} className="overflow-hidden h-0 opacity-0">
               <div className="p-6 pt-0">
-                <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-6">
+                <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-6 shadow-md">
                   <img src={brand.image} className="w-full h-full object-cover" alt="" />
                 </div>
                 {brand.type === 'nested' ? (
-                  <div className="grid grid-cols-1 gap-2">
+                  <div className="grid grid-cols-1 gap-3">
                     {brand.projects?.map((pj) => (
-                      <div key={pj.name} onClick={() => pj.path !== '#' && navigate(pj.path)} className="p-4 bg-black/[0.03] rounded-xl flex justify-between items-center active:bg-[#70061d] active:text-white transition-colors">
-                        <span className="text-xs font-bold uppercase tracking-widest">{pj.name}</span>
-                        <span>→</span>
+                      <div key={pj.name} onClick={() => pj.path !== '#' && navigate(pj.path)} className="p-4 bg-white/60 backdrop-blur-sm rounded-xl flex justify-between items-center active:bg-[#70061d] active:text-white transition-colors cursor-pointer border border-white/50 shadow-sm">
+                        <span className="text-xs font-bold uppercase tracking-widest text-[#111]">{pj.name}</span>
+                        <span className="text-[#70061d]">→</span>
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div className="space-y-6">
-                    <p className="text-black/50 text-sm leading-relaxed tracking-tight">{brand.description}</p>
-                    <a href={brand.website} target="_blank" className="inline-block w-full text-center px-6 py-4 bg-[#70061d] text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-xl">Visit Portal</a>
+                    <p className="text-[#111]/50 text-sm leading-relaxed tracking-tight">{brand.description}</p>
+                    <a href={brand.website} target="_blank" className="inline-block w-full text-center px-6 py-4 bg-[#70061d] text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-xl shadow-lg shadow-[#70061d]/20 hover:bg-[#8a0a26] transition-colors">Visit Portal</a>
                   </div>
                 )}
               </div>
@@ -191,71 +204,73 @@ export const ProjectNavigator: React.FC = () => {
 
       {/* ── DESKTOP VIEW ── */}
       <div className="hidden md:grid max-w-[1800px] mx-auto px-8 grid-cols-12 gap-8 items-stretch">
-        <div
-          className="col-span-12 lg:col-span-9 min-h-[700px] xl:min-h-[750px] relative rounded-[40px] overflow-hidden shadow-[0_60px_120px_-20px_rgba(112,6,29,0.15)] group"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
+        <div className="col-span-12 lg:col-span-9 min-h-[700px] xl:min-h-[750px] relative rounded-[40px] overflow-hidden shadow-[0_60px_120px_-20px_rgba(112,6,29,0.12)] group">
           <div className="absolute inset-0 bg-[#0a0a0a]">
             {brands.map((brand, idx) => (
               <div key={brand.id} className={`absolute inset-0 transition-all duration-1000 ease-out ${idx === activeIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}>
                 <img src={brand.image} className="w-full h-full object-cover" alt={brand.name} />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
               </div>
             ))}
           </div>
-          <div className="absolute top-10 right-10 z-20"><span className="text-8xl font-black text-white/10">{String(activeIndex + 1).padStart(2, '0')}</span></div>
+          
+          {/* Index Number */}
+          <div className="absolute top-12 right-12 z-20">
+            <span className="text-8xl font-black text-white/[0.06] tracking-tighter">{String(activeIndex + 1).padStart(2, '0')}</span>
+          </div>
+          
           <div className="relative z-20 h-full w-full p-12 xl:p-20 flex flex-col justify-end">
-            <div className="hero-tagline mb-6">
-              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10">
-                <div className="w-2 h-2 rounded-full bg-[#70061d]" /><span className="text-[11px] tracking-[0.25em] text-white/80 uppercase font-medium">{activeBrand.tagline}</span>
+            <div className="hero-tagline mb-8">
+              <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full liquid-glass-dark">
+                <div className="w-2 h-2 rounded-full bg-[#ff4070] shadow-[0_0_12px_rgba(255,64,112,0.6)]" />
+                <span className="text-[11px] tracking-[0.25em] text-white/80 uppercase font-medium">{activeBrand.tagline}</span>
               </div>
             </div>
-            <h3 className="hero-title text-5xl xl:text-7xl font-black text-white leading-[0.95] tracking-tight mb-6 max-w-3xl">{activeBrand.name.replace(' Pvt Ltd', '').replace(' (OPC)', '')}</h3>
-            <p className="hero-description text-base xl:text-lg text-white/70 max-w-xl leading-relaxed mb-10">{activeBrand.description}</p>
+            
+            <h3 className="hero-title text-5xl xl:text-7xl font-black text-white leading-[0.95] tracking-[-0.03em] mb-6 max-w-3xl">{activeBrand.name.replace(' Pvt Ltd', '').replace(' (OPC)', '')}</h3>
+            <p className="hero-description text-base xl:text-lg text-white/60 max-w-xl leading-relaxed mb-12 font-light">{activeBrand.description}</p>
+            
             {activeBrand.type === 'nested' ? (
-              <div className="grid grid-cols-2 gap-3 max-w-lg">
+              <div className={`grid ${activeBrand.projects?.length === 1 ? 'grid-cols-1 max-w-xs' : 'grid-cols-2 max-w-lg'} gap-4`}>
                 {activeBrand.projects?.map((project, pIdx) => (
-                  <button key={pIdx} onClick={() => navigate(project.path)} className="hero-projects-item flex items-center justify-between p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-[#70061d]/50 transition-all duration-300">
-                    <div className="flex flex-col items-start"><span className="text-sm font-semibold text-white">{project.name}</span><span className="text-[9px] tracking-wider text-[#fa6183] uppercase mt-1">{project.status}</span></div><ArrowIcon className="w-4 h-4 text-white/30" />
+                  <button key={pIdx} onClick={() => project.path !== '#' && navigate(project.path)} className="hero-projects-item flex items-center justify-between p-5 rounded-2xl liquid-glass-dark hover:shadow-[0_0_30px_rgba(112,6,29,0.3)]">
+                    <div className="relative z-10 flex flex-col items-start">
+                      <span className="text-sm font-semibold text-white tracking-tight">{project.name}</span>
+                      <span className="text-[9px] tracking-[0.2em] text-[#ff8fa8] uppercase mt-1.5 font-medium">{project.status}</span>
+                    </div>
+                    <ArrowIcon className="relative z-10 w-4 h-4 text-white/30" />
                   </button>
                 ))}
               </div>
             ) : (
-              <a href={activeBrand.website} target="_blank" rel="noopener noreferrer" className="hero-cta inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white text-[#0a0a0a] font-semibold text-sm tracking-wide hover:bg-[#70061d] hover:text-white transition-all w-fit">
+              <a href={activeBrand.website} target="_blank" rel="noopener noreferrer" className="hero-cta inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-white text-[#0a0a0a] font-semibold text-sm tracking-wide hover:bg-[#70061d] hover:text-white transition-all duration-300 w-fit shadow-lg shadow-black/20 hover:shadow-[#70061d]/40">
                 <span>Visit Website</span><ArrowIcon className="w-4 h-4" />
               </a>
             )}
-            
-            {/* ── PROGRESS BAR (COMMENTED OUT CSS) ──
-            <div className="absolute bottom-10 right-10 xl:right-20 flex items-center gap-4">
-              <div className="w-[160px] xl:w-[200px] h-[2px] bg-white/10 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-[#70061d] to-[#a01830]" style={{ width: `${progressPercent}%`, transition: 'width 30ms linear' }} />
-              </div>
-              <span className="text-[10px] text-white/40 font-mono">{Math.ceil((ROTATION_TIME - (progressPercent / 100 * ROTATION_TIME)) / 1000)}s</span>
-            </div> 
-            */}
           </div>
         </div>
 
         {/* ── SIDEBAR NAVIGATION ── */}
-        <div className="col-span-12 lg:col-span-3 flex flex-col gap-4">
+        <div className="col-span-12 lg:col-span-3 flex flex-col gap-5">
           {brands.map((brand, idx) => {
             const isActive = idx === activeIndex;
             return (
-              <div key={brand.id} onClick={() => handleToggle(idx)} className={`relative flex-1 min-h-[140px] xl:min-h-[160px] rounded-[28px] overflow-hidden cursor-pointer transition-all duration-500 group ${isActive ? 'bg-gradient-to-br from-[#70061d] via-[#8a0a26] to-[#5c0518] shadow-2xl shadow-[#70061d]/30 scale-[1.02]' : 'bg-white border border-black/[0.04]'}`}>
+              <div key={brand.id} onClick={() => handleToggle(idx)} className={`relative flex-1 min-h-[140px] xl:min-h-[160px] rounded-[28px] overflow-hidden cursor-pointer transition-all duration-500 group ${isActive ? 'bg-gradient-to-br from-[#70061d] via-[#8a0a26] to-[#5c0518] shadow-2xl shadow-[#70061d]/30 scale-[1.02] border border-[#ff4070]/10' : 'liquid-glass-light'}`}>
                 <div className="relative z-10 h-full p-6 xl:p-7 flex flex-col justify-between">
                   <div>
-                    <span className={`text-[10px] tracking-[0.2em] font-bold uppercase mb-3 block ${isActive ? 'text-white/60' : 'text-[#70061d]'}`}>{String(idx + 1).padStart(2, '0')}</span>
-                    <h4 className={`text-base xl:text-lg font-bold transition-colors duration-300 ${isActive ? 'text-white' : 'text-[#0a0a0a]'}`}>{brand.name.replace(' Pvt Ltd', '')}</h4>
+                    <span className={`text-[10px] tracking-[0.2em] font-bold uppercase mb-3 block transition-colors duration-300 ${isActive ? 'text-white/50' : 'text-[#70061d]'}`}>{String(idx + 1).padStart(2, '0')}</span>
+                    <h4 className={`text-base xl:text-lg font-bold transition-colors duration-300 tracking-[-0.01em] ${isActive ? 'text-white' : 'text-[#111]'}`}>{brand.name.replace(' Pvt Ltd', '').replace(' (OPC)', '')}</h4>
                   </div>
                   <div className="flex items-end justify-between">
-                    <span className={`text-[10px] tracking-[0.15em] uppercase font-medium ${isActive ? 'text-white/50' : 'text-neutral-400'}`}>{brand.tagline.split(' ').slice(0, 2).join(' ')}</span>
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isActive ? 'bg-white/20' : 'bg-[#f5f5f5]'}`}><ArrowIcon className="w-4 h-4" /></div>
+                    <span className={`text-[10px] tracking-[0.15em] uppercase font-medium transition-colors duration-300 ${isActive ? 'text-white/40' : 'text-neutral-400'}`}>{brand.tagline.split(' ').slice(0, 2).join(' ')}</span>
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${isActive ? 'bg-white/10 border border-white/10' : 'bg-white/60 border border-black/5 group-hover:bg-[#70061d]/10'}`}>
+                      <ArrowIcon className={`w-4 h-4 transition-colors duration-300 ${isActive ? 'text-white/80' : 'text-black/30 group-hover:text-[#70061d]'}`} />
+                    </div>
                   </div>
-                  {/* {isActive && <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/20"><div className="h-full bg-white/80" style={{ width: `${progressPercent}%`, transition: 'width 30ms linear' }} /></div>} */}
                 </div>
+                {/* Subtle inner glow for active card */}
+                {isActive && <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-transparent pointer-events-none" />}
               </div>
             );
           })}

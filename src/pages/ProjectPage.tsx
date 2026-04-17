@@ -9,7 +9,6 @@ import { KineticGallery } from '../components/project/KineticGallery';
 import { BlueprintSection } from '../components/project/BlueprintSection';
 import { AmenitiesSection } from '../components/project/AmenitiesSection';
 import { ConclusionSection } from '../components/project/ConclusionSection';
-import { AboutGroupSection } from '../components/project/AboutGroupSection';
 import { ContactSection } from '../components/project/ContactSection';
 import { Footer } from '../components/shared/Footer';
 
@@ -47,7 +46,6 @@ export const ProjectPage: React.FC = () => {
 
       <AmenitiesSection />
       <ConclusionSection />
-      <AboutGroupSection />
       <ContactSection />
       <Footer />
     </main>
