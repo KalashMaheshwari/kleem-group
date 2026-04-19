@@ -1,4 +1,5 @@
 import React from 'react';
+import { Instagram, Facebook } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -69,6 +70,33 @@ export const Footer: React.FC = () => {
                   +91-77175-05741
                 </a>
               </div>
+            </div>
+          </div>
+
+          {/* Social Links */}
+          <div className="lg:col-span-2">
+            <h4 className="text-[9px] font-black tracking-[0.4em] text-white/30 uppercase mb-6">
+              Connect
+            </h4>
+            <div className="flex items-center gap-4">
+              <a 
+                href="https://www.instagram.com/kleemgroupchd?igsh=Y2M2YWpucmxjYWo5" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/60 hover:text-white transition-all duration-300"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} strokeWidth={1.5} />
+              </a>
+              <a 
+                href="https://facebook.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/60 hover:text-white transition-all duration-300"
+                aria-label="Facebook"
+              >
+                <Facebook size={20} strokeWidth={1.5} />
+              </a>
             </div>
           </div>
         </div>
