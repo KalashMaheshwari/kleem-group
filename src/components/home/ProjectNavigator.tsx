@@ -7,7 +7,7 @@ const brands = [
     id: 'builders',
     name: 'Kleem Builder Pvt Ltd',
     tagline: 'Crafting Luxury Landmarks',
-    image: '/images/kasoli.webp',
+    image: '/images/Builder.webp',
     type: 'nested',
     description: 'Architecting dreams into reality with world-class residential developments.',
     projects: [
@@ -18,7 +18,7 @@ const brands = [
     id: 'developers',
     name: 'Kleem Developers (OPC) Pvt Ltd',
     tagline: 'Strategic Urban Growth',
-    image: '/images/developers-bg.jpg',
+    image: '/images/developer.webp',
     type: 'nested',
     description: 'Creating high-yield investment opportunities through strategic land acquisition and urban planning.',
     projects: [

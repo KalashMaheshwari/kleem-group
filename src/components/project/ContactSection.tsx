@@ -19,7 +19,7 @@ export const ContactSection: React.FC = () => {
     <section 
       id="contact" 
       className="bg-white" 
-      style={{ padding: 'clamp(100px, 12vw, 180px) 0' }}
+      style={{ padding: 'clamp(100px, 1vw, 180px) 0' }}
     >
       <div className="max-w-[1300px] mx-auto px-6 md:px-12 lg:px-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
@@ -27,7 +27,7 @@ export const ContactSection: React.FC = () => {
           {/* LEFT: INFORMATION BLOCK */}
           <div className="lg:col-span-5">
             <span className="block font-bold text-[12px] tracking-[0.5em] text-[#70061d] uppercase mb-10">
-              06 / CONTACT
+              / CONTACT
             </span>
             
             <h2 className="text-[clamp(44px,6vw,84px)] font-[900] text-black leading-[0.9] tracking-tighter uppercase mb-10">
@@ -36,7 +36,7 @@ export const ContactSection: React.FC = () => {
             </h2>
             
             <p className="text-[18px] md:text-[22px] text-black/50 leading-snug font-medium max-w-[440px] mb-14">
-              Limited to 13 units. The final window for an elite investment in the Tricity corridor.
+              Limited units. The final window for an elite investment in the Tricity corridor.
             </p>
 
             {/* ENHANCED LOCATION BLOCK */}

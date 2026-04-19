@@ -108,7 +108,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         <div className="relative flex items-center justify-center mb-8 md:mb-14">
           <img
             ref={logoRef}
-            src="/logomain.webp"
+            src="/goldfulllogo.webp"
             alt="Kleem Group"
             className="w-32 md:w-44 h-auto relative z-10"
             style={{ filter: 'drop-shadow(0 0 25px rgba(200,15,50,0.18))' }}

@@ -102,7 +102,7 @@ export const KineticGallery: React.FC = () => {
 
       <div className="px-10 lg:px-24 mb-20 relative z-10">
         <span className="block font-bold text-[11px] tracking-[0.6em] text-primary mb-5 uppercase border-l-4 border-primary pl-5">
-          04 / INTERIOR MASTERPIECES
+          / INTERIOR MASTERPIECES
         </span>
         <div className="flex items-end justify-between">
           <h2 className="font-[900] text-ink text-[clamp(32px,5.5vw,80px)] leading-[0.9] tracking-tighter">

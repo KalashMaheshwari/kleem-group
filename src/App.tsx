@@ -13,10 +13,9 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/projects/dera-bassi" element={<ProjectPage />} />
+          <Route path="/projects/:slug" element={<ProjectPage />} />
 
           {/* ── VENTURES UNDER DEVELOPMENT ── */}
-          <Route path="/projects/1bhk-flats" element={<ComingSoon />} />
           <Route path="/projects/la-essence" element={<ComingSoon />} />
           <Route path="/pharma" element={<ComingSoon />} />
           <Route path="/sports" element={<ComingSoon />} />

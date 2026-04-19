@@ -1,16 +1,50 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const ProjectHero: React.FC = () => {
+interface ProjectHeroProps {
+  titleLine1: string;
+  titleLine2: string;
+  description: string;
+  bgImage: string;
+  videoSrc?: string;
+  primaryCtaText?: string;
+}
+
+export const ProjectHero: React.FC<ProjectHeroProps> = ({
+  titleLine1,
+  titleLine2,
+  description,
+  bgImage,
+  videoSrc,
+  primaryCtaText = "Explore Now"
+}) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const [isShowingVideo, setIsShowingVideo] = useState(true);
+
+  // Function to handle what happens when the video finishes
+  const handleVideoEnd = () => {
+    setIsShowingVideo(false); // Fade to photo
+    
+    // Stay on photo for 5 seconds, then fade back to video
+    setTimeout(() => {
+      setIsShowingVideo(true);
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play();
+      }
+    }, 5000);
+  };
 
   useEffect(() => {
+    // 1. Text Animation Logic
     if (titleRef.current) {
       const targets = titleRef.current.querySelectorAll('.split-target');
       targets.forEach((target: any) => {
@@ -55,27 +89,37 @@ export const ProjectHero: React.FC = () => {
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [titleLine1, titleLine2]);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden bg-black"
-    >
-      {/* Background Canvas */}
+    <section ref={sectionRef} className="relative h-screen w-full overflow-hidden bg-black">
       <div ref={imageRef} className="absolute inset-0 w-full h-[120%] -top-[10%]">
+        
+        {/* VIDEO LAYER */}
+        {videoSrc && (
+          <video
+            ref={videoRef}
+            src={videoSrc}
+            autoPlay
+            muted
+            playsInline
+            onEnded={handleVideoEnd} // Trigger the swap when done
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+              isShowingVideo ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        )}
+
+        {/* IMAGE LAYER */}
         <img
-          src="/images/project-hero.webp"
-          alt="Premium Living"
-          className="w-full h-full object-cover brightness-[0.85] saturate-[1.1]"
+          src={bgImage}
+          alt={titleLine1}
+          className={`absolute inset-0 w-full h-full object-cover brightness-[0.85] saturate-[1.1] transition-opacity duration-1000 ease-in-out ${
+            !isShowingVideo || !videoSrc ? 'opacity-100' : 'opacity-0'
+          }`}
         />
 
-        {/* SOFT VIGNETTE: Darkens edges slightly to focus on center */}
         <div className="absolute inset-0 z-[1] bg-black/20" />
-
-        {/* THE SOFT BURGUNDY BLOOM: 
-      Starts soft from the left and washes out before the center. 
-      'multiply' blend mode makes the color look 'in' the photo, not 'on' it. */}
         <div
           className="absolute inset-0 z-[2] mix-blend-multiply"
           style={{
@@ -84,60 +128,39 @@ export const ProjectHero: React.FC = () => {
         />
       </div>
 
+      {/* CONTENT BLOCK (Same as before) */}
       <div className="relative z-10 h-full flex flex-col justify-center px-6 md:px-12 lg:px-24 xl:px-32 max-w-[1500px] mx-auto">
-
-        <div className="hero-fade-in-block opacity-0 translate-y-4 mb-4">
-
-        </div>
-
         <div className="mb-10">
           <h1 ref={titleRef} className="text-white flex flex-col items-start gap-1"
             style={{ fontSize: 'clamp(40px, 7vw, 98px)', lineHeight: '1' }}>
-
             <span className="split-target block font-[900] tracking-tighter uppercase whitespace-nowrap">
-              Residential
+              {titleLine1}
             </span>
-
-            <div className="flex flex-wrap items-center gap-x-5">
-              <span className="split-target block font-[900] tracking-tighter uppercase">plots & villas.</span>
-
-              {/* THE REFINED HOLLOW + PHYSICAL HIGHLIGHT */}
-              <span className="relative group cursor-default">
-                {/* Left-to-Right Highlighter Fill */}
-                <div className="absolute inset-0 bg-[#70061d] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-[0.65, 0, 0.35, 1]" />
-              </span>
-            </div>
+            <span className="split-target block font-[900] tracking-tighter uppercase">
+              {titleLine2}
+            </span>
           </h1>
         </div>
 
         <div className="hero-fade-in-block opacity-0 translate-y-4 mb-12">
           <p className="text-white/75 max-w-[580px] font-medium leading-relaxed"
             style={{ fontSize: 'clamp(16px, 1.6vw, 20px)' }}>
-            A thoughtfully planned residential development offering the perfect
-            balance of comfort, connectivity, and modern design.
+            {description}
           </p>
         </div>
 
         <div className="hero-fade-in-block opacity-0 translate-y-4">
           <motion.a
-            href="#about-project"
-            // SCALE UP: 1.05 is the "Sweet Spot" for premium buttons (5% increase)
+            href="#projectabout"
             whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }} // Adds a physical "click" feel
-            transition={{ type: "spring", stiffness: 400, damping: 25 }} // Makes the scale-up feel snappy but smooth
-            className="group relative inline-flex items-center gap-6 bg-[#70061d] px-12 py-5 rounded-full overflow-hidden transition-all duration-700 shadow-[0_20px_40px_rgba(112,6,29,0.25)]"
+            whileTap={{ scale: 0.98 }}
+            className="group relative inline-flex items-center gap-6 bg-[#70061d] px-12 py-5 rounded-full overflow-hidden transition-all duration-700"
           >
-            {/* WHITE FILL SLIDE */}
             <div className="absolute inset-0 bg-white translate-y-[101%] group-hover:translate-y-0 transition-transform duration-600 ease-[0.16,1,0.3,1]" />
-
             <span className="relative z-10 text-white group-hover:text-[#70061d] font-bold text-[12px] tracking-[0.3em] uppercase transition-colors duration-500">
-              Explore Now
+              {primaryCtaText}
             </span>
-
-            <svg
-              width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-              className="relative z-10 text-white group-hover:text-[#70061d] transition-colors duration-500"
-            >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="relative z-10 text-white group-hover:text-[#70061d] transition-colors duration-500">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </motion.a>
@@ -146,5 +169,3 @@ export const ProjectHero: React.FC = () => {
     </section>
   );
 };
-
-export default ProjectHero;

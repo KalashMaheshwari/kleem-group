@@ -43,7 +43,7 @@ export const HeroSection: React.FC = () => {
           playsInline
           className="w-full h-full object-cover brightness-[0.75] saturate-[1.1]"
         >
-          <source src="/video.mp4" type="video/mp4" />
+          <source src="/videos/video.mp4" type="video/mp4" />
         </video>
       </div>
 
@@ -84,7 +84,7 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.5, delay: 0.2, ease: premiumEase }}
-            src="/logofull.webp"
+            src="/goldfulllogo.webp"
             alt="Kleem Group Icon"
             className="w-auto h-[clamp(160px,22vw,320px)] object-contain"
           />
