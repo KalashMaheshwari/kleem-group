@@ -161,3 +161,80 @@ export const projectData = {
     showGroupSection: true
   }
 };
+
+export const legalData = {
+  "privacy-policy": {
+    title: "Privacy Policy",
+    effectiveDate: "2026",
+    sections: [
+      {
+        heading: "Information We Collect",
+        content: "We may collect personal information such as your name, phone number, email address, and any other details you voluntarily provide through contact forms, inquiry forms, or direct communication."
+      },
+      {
+        heading: "How We Use Your Information",
+        content: "Your information may be used to respond to inquiries and provide project details, share updates regarding our projects, offers, or services, and improve our services and user experience. We do not sell or rent your personal information. However, it may be shared with internal teams or authorized representatives strictly for business purposes."
+      },
+      {
+        heading: "Data Security",
+        content: "We take reasonable technical and organizational measures to safeguard your data. However, no digital platform can guarantee complete security."
+      },
+      {
+        heading: "Cookies & Tracking",
+        content: "Our website may use cookies or similar technologies to enhance user experience and analyze website performance."
+      },
+      {
+        heading: "Third-Party Links",
+        content: "Our website may contain links to external platforms. Kleem Group is not responsible for their content or privacy practices."
+      }
+    ]
+  },
+  "terms-and-conditions": {
+    title: "Terms & Conditions",
+    effectiveDate: "2026",
+    sections: [
+      {
+        heading: "General Information",
+        content: "By accessing this website, you agree that all content is for informational and promotional purposes only and does not constitute a legal offer."
+      },
+      {
+        heading: "Project Details",
+        content: "All project specifications, layouts, sizes, pricing, and availability are subject to change without prior notice. Nothing on this website shall be considered as a binding agreement or commitment."
+      },
+      {
+        heading: "Intellectual Property",
+        content: "All content including images, text, designs, and branding elements are the property of Kleem Group. Unauthorized use is strictly prohibited."
+      },
+      {
+        heading: "User Responsibility",
+        content: "Users are advised to independently verify all details before making any decision related to property purchase or investment."
+      },
+      {
+        heading: "Limitation of Liability",
+        content: "Kleem Group shall not be held liable for any direct, indirect, or incidental damages arising from the use of this website or reliance on its content. All disputes shall be subject to the jurisdiction of local courts where the company operates."
+      }
+    ]
+  },
+  "disclaimer": {
+    title: "Disclaimer",
+    effectiveDate: "2026",
+    sections: [
+      {
+        heading: "Informational Purposes",
+        content: "All information, images, visuals, plans, layouts, specifications, and other content displayed on this website are for general informational and illustrative purposes only."
+      },
+      {
+        heading: "Representation Clause",
+        content: "Images shown are artistic impressions or conceptual representations. Actual construction, design, and specifications may vary from what is displayed."
+      },
+      {
+        heading: "No Offer Clause",
+        content: "This website does not constitute an offer, invitation to offer, or any form of legal commitment. All developments are subject to necessary approvals from relevant authorities."
+      },
+      {
+        heading: "Investment Advisory",
+        content: "The company does not guarantee returns, appreciation, or rental income. Any investment decision should be made at the buyer's discretion after conducting their own due diligence."
+      }
+    ]
+  }
+};

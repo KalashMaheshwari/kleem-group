@@ -1,5 +1,6 @@
 import React from 'react';
 import { Instagram, Facebook } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
   return (
@@ -102,7 +103,8 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* BOTTOM BAR */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4">
+          {/* Left side: Copyright & Location */}
           <div className="flex items-center gap-6">
             <p className="text-[9px] font-bold tracking-widest text-white/20 uppercase">
               &copy; 2026 Kleem Group
@@ -113,10 +115,28 @@ export const Footer: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="w-1 h-1 rounded-full bg-white/10" />
-            <div className="w-1 h-1 rounded-full bg-white/10" />
-            <div className="w-1 h-1 rounded-full bg-white/10" />
+          {/* Right side: Minimal Horizontal Legal Links */}
+          <div className="flex items-center gap-4 md:gap-6">
+            <Link 
+              to="/legal/privacy-policy" 
+              className="text-[9px] font-bold tracking-widest text-white/20 uppercase hover:text-white/60 transition-colors duration-300"
+            >
+              Privacy Policy
+            </Link>
+            <div className="h-3 w-px bg-white/10 hidden md:block" />
+            <Link 
+              to="/legal/terms-and-conditions" 
+              className="text-[9px] font-bold tracking-widest text-white/20 uppercase hover:text-white/60 transition-colors duration-300"
+            >
+              Terms & Conditions
+            </Link>
+            <div className="h-3 w-px bg-white/10 hidden md:block" />
+            <Link 
+              to="/legal/disclaimer" 
+              className="text-[9px] font-bold tracking-widest text-white/20 uppercase hover:text-white/60 transition-colors duration-300"
+            >
+              Disclaimer
+            </Link>
           </div>
         </div>
       </div>

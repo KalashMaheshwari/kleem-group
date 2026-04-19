@@ -7,6 +7,14 @@ export const Navigation: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
+  // Define where the navbar should be completely hidden
+  const isLegalPage = location.pathname.startsWith('/legal/');
+
+  // If it's a legal page, return null (renders nothing)
+  if (isLegalPage) {
+    return null;
+  }
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', handleScroll, { passive: true });

@@ -5,6 +5,7 @@ import { WhatsAppFAB } from './components/shared/WhatsAppFAB';
 import { HomePage } from './pages/HomePage';
 import { ProjectPage } from './pages/ProjectPage';
 import ComingSoon from './pages/ComingSoon';
+import { LegalPage } from './pages/LegalPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/projects/:slug" element={<ProjectPage />} />
+          <Route path="/legal/:slug" element={<LegalPage />} />
 
           {/* ── VENTURES UNDER DEVELOPMENT ── */}
           <Route path="/projects/la-essence" element={<ComingSoon />} />
