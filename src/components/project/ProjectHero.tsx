@@ -27,18 +27,32 @@ export const ProjectHero: React.FC<ProjectHeroProps> = ({
   const titleRef = useRef<HTMLHeadingElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const [isShowingVideo, setIsShowingVideo] = useState(true);
+  // START WITH PHOTO (false)
+  const [isShowingVideo, setIsShowingVideo] = useState(false);
 
-  // Function to handle what happens when the video finishes
+  // Initial Load Logic: Show photo for 5s, then switch to video
+  useEffect(() => {
+    if (!videoSrc) return;
+
+    const initialTimer = setTimeout(() => {
+      setIsShowingVideo(true);
+      if (videoRef.current) {
+        videoRef.current.play().catch(err => console.log("Autoplay blocked:", err));
+      }
+    }, 5000);
+
+    return () => clearTimeout(initialTimer);
+  }, [videoSrc]);
+
+  // Loop Logic: When video ends, show photo for 5s, then restart video
   const handleVideoEnd = () => {
-    setIsShowingVideo(false); // Fade to photo
+    setIsShowingVideo(false); 
     
-    // Stay on photo for 5 seconds, then fade back to video
     setTimeout(() => {
       setIsShowingVideo(true);
       if (videoRef.current) {
         videoRef.current.currentTime = 0;
-        videoRef.current.play();
+        videoRef.current.play().catch(err => console.log("Loop restart blocked:", err));
       }
     }, 5000);
   };
@@ -93,35 +107,36 @@ export const ProjectHero: React.FC<ProjectHeroProps> = ({
 
   return (
     <section ref={sectionRef} className="relative h-screen w-full overflow-hidden bg-black">
-      <div ref={imageRef} className="absolute inset-0 w-full h-[120%] -top-[10%]">
+      <div ref={imageRef} className="absolute inset-0 w-full h-[120%] -top-[10%] bg-black">
         
-        {/* VIDEO LAYER */}
+        {/* IMAGE LAYER - Lower z-index, always there */}
+        <img
+          src={bgImage}
+          alt={titleLine1}
+          className="absolute inset-0 w-full h-full object-cover brightness-[0.85] saturate-[1.1]"
+          style={{ zIndex: 1 }}
+        />
+
+        {/* VIDEO LAYER - Higher z-index, fades in/out */}
         {videoSrc && (
           <video
             ref={videoRef}
             src={videoSrc}
-            autoPlay
             muted
             playsInline
-            onEnded={handleVideoEnd} // Trigger the swap when done
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+            preload="auto" // Forces background loading during the 5s photo time
+            onEnded={handleVideoEnd}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
               isShowingVideo ? 'opacity-100' : 'opacity-0'
             }`}
+            style={{ zIndex: 2 }}
           />
         )}
 
-        {/* IMAGE LAYER */}
-        <img
-          src={bgImage}
-          alt={titleLine1}
-          className={`absolute inset-0 w-full h-full object-cover brightness-[0.85] saturate-[1.1] transition-opacity duration-1000 ease-in-out ${
-            !isShowingVideo || !videoSrc ? 'opacity-100' : 'opacity-0'
-          }`}
-        />
-
-        <div className="absolute inset-0 z-[1] bg-black/20" />
+        {/* OVERLAYS */}
+        <div className="absolute inset-0 z-[3] bg-black/20" />
         <div
-          className="absolute inset-0 z-[2] mix-blend-multiply"
+          className="absolute inset-0 z-[4] mix-blend-multiply"
           style={{
             background: 'linear-gradient(to right, rgba(112,6,29,0.45) 0%, rgba(112,6,29,0.1) 40%, transparent 70%)'
           }}
